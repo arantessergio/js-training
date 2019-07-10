@@ -7,6 +7,6 @@ const App: React.FC = () => {
       <TodoPage/>
     </div>
   );
-}
+};
 
 export default App;

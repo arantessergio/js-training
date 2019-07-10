@@ -1,10 +1,11 @@
 import React, {useState} from 'react'
-import {useTodoContex} from "../../Page/TodoPage";
 
 
-export const TodoInput = () => {
+interface IProps {
+    addTodoList: (title: string ) => void;
+}
 
-    const {addTodoList} = useTodoContex();
+export const TodoInput:React.FC<IProps> = ({addTodoList}) => {
     const [value, setValue] = useState('');
 
     return (

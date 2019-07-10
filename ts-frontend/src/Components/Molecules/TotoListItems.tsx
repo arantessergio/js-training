@@ -1,13 +1,10 @@
 import React, {useState} from 'react'
-import {Todo, useTodoContex} from "../../Page/TodoPage";
+import {Todo, useTodoContext} from "../../Hooks/useTodoContext";
 
-interface IProps {
-    todo: Todo
-}
 
-const TodoListItemsLine = ({todo}: IProps) => {
+const TodoListItemsLine = ({todo}: { todo: Todo }) => {
 
-    const { toggleStatus } = useTodoContex();
+    const { toggleStatus } = useTodoContext();
 
     return <>
         <li> <input type="checkbox" checked={todo.done} onChange={ e => toggleStatus(todo.id) } /> {todo.title}</li>
@@ -15,9 +12,11 @@ const TodoListItemsLine = ({todo}: IProps) => {
 
 };
 
-export const TodoListItems = () => {
+interface IProps {
+    todoList: Todo[]
+}
 
-    const { todoList } = useTodoContex();
+export const TodoListItems: React.FC<IProps> = ({todoList}) => {
 
     const [filter, setFilter] = useState('');
 

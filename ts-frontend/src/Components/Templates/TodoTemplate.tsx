@@ -1,15 +1,18 @@
 import React from 'react'
 import {TodoListItems} from "../Molecules/TotoListItems";
 import {TodoInput} from "../Molecules/TodoInput";
+import {Todo} from "../../Hooks/useTodoContext";
 
 interface IProps {
+    addTodoList: (title: string ) => void
+    todoList: Todo[]
 }
 
-export const TodoTemplate = (props: IProps) => {
+export const TodoTemplate:React.FC<IProps>  = (props) => {
     return (
         <>
-            <TodoInput/>
-            <TodoListItems/>
+            <TodoInput addTodoList={props.addTodoList}/>
+            <TodoListItems todoList={props.todoList}/>
         </>
     );
 };
