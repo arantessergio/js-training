@@ -13,9 +13,8 @@ interface IContext {
     toggleStatus: (id: number) => void;
 }
 
-const ctx = createContext<IContext>({} as IContext);
-
-export const useTodoContext = () => useContext(ctx);
+export const TodoListContext = createContext<IContext>({} as IContext);
+export const useTodoContext = () => useContext(TodoListContext);
 
 let lastId = 0;
 const nextId = () => ++lastId;
@@ -51,8 +50,8 @@ export const TodoListProvider: React.FC = ({children}) => {
     }
 
     return (
-        <ctx.Provider value={value}>
+        <TodoListContext.Provider value={value}>
             {children}
-            </ctx.Provider>
+            </TodoListContext.Provider>
     )
 }
