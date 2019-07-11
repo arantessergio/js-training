@@ -1,5 +1,5 @@
 import React from 'react'
-import {TodoListItems} from "../Molecules/TotoListItems";
+import {TodoListItems} from "../Molecules/TodoListItems";
 import {TodoInput} from "../Molecules/TodoInput";
 import {Todo} from "../../Hooks/useTodoContext";
 
