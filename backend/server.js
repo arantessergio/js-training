@@ -6,6 +6,8 @@ const db = require('./config/database.config')
 
 const todoRoutes = require('./api/routes/Todo')
 const scheduleRoutes = require('./api/routes/Schedule')
+const userRoutes = require('./api/routes/User')
+
 const app = express()
 
 app.use(
@@ -26,6 +28,7 @@ mongoose.connect(db.url, { useNewUrlParser: true })
 
 require('./api/models/Todo')
 require('./api/models/Schedule')
+require('./api/models/User')
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*')
@@ -38,6 +41,7 @@ app.use((req, res, next) => {
     next()
 })
 
+userRoutes(app)
 todoRoutes(app)
 scheduleRoutes(app)
 app.listen(process.env.PORT || 3000, () =>
