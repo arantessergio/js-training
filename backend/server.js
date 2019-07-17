@@ -5,7 +5,7 @@ const morgan = require('morgan')
 const db = require('./config/database.config')
 
 const todoRoutes = require('./api/routes/Todo')
-
+const scheduleRoutes = require('./api/routes/Schedule')
 const app = express()
 
 app.use(
@@ -25,6 +25,7 @@ app.use(bodyParser.json())
 mongoose.connect(db.url, { useNewUrlParser: true })
 
 require('./api/models/Todo')
+require('./api/models/Schedule')
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*')
@@ -38,7 +39,7 @@ app.use((req, res, next) => {
 })
 
 todoRoutes(app)
-
+scheduleRoutes(app)
 app.listen(process.env.PORT || 3000, () =>
     console.log('my backend is running...')
 )
