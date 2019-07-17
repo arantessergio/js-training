@@ -22,7 +22,7 @@ exports.auth = (req, res) => {
     User.findOne({ email, password }, (err, result) => {
         if (err) res.send(err)
         if (result) res.send(result)
-        if (!err && !result) res.status(200).send({ error: 'E-mail ou senha incorretos.' }) 
+        if (!err && !result)
+            res.status(200).send({ error: 'E-mail ou senha incorretos.' })
     })
 }
-
