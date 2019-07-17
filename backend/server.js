@@ -28,7 +28,6 @@ mongoose.connect(db.url, { useNewUrlParser: true })
 require('./api/models/Todo')
 require('./api/models/Schedule')
 require('./api/models/User')
-
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*')
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
@@ -43,7 +42,6 @@ app.use((req, res, next) => {
 userRoutes(app)
 todoRoutes(app)
 scheduleRoutes(app)
-
 app.listen(process.env.PORT || 3000, () =>
     console.log('my backend is running...')
 )
