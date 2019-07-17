@@ -2,14 +2,18 @@ const mongoose = require('mongoose')
 const Schedule = require('../models/Schedule')
 
 exports.create = (req, res) => {
-    Schedule.create(req.body, (err, result) => {
+    const user = req.params.id
+    const schedule = req.body
+    schedule.user = user
+    Schedule.create(schedule, (err, result) => {
         if (err) res.send(err)
         if (result) res.send(result)
     })
 }
 
 exports.list = (req, res) => {
-    Schedule.find({}, (err, result) => {
+    const user = req.params.id
+    Schedule.find({ user }, (err, result) => {
         if (err) res.send(err)
         if (result) res.send(result)
     })

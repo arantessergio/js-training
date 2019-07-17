@@ -2,14 +2,18 @@ const mongoose = require('mongoose')
 const Todo = require('../models/Todo')
 
 exports.create = (req, res) => {
-    Todo.create(req.body, (err, result) => {
+    const schedule = req.params.id
+    const todo = req.body
+    todo.schedule = schedule
+    Todo.create(todo, (err, result) => {
         if (err) res.send(err)
         if (result) res.send(result)
     })
 }
 
 exports.list = (req, res) => {
-    Todo.find({}, (err, result) => {
+    const schedule = req.params.id
+    Todo.find({ schedule }, (err, result) => {
         if (err) res.send(err)
         if (result) res.send(result)
     })

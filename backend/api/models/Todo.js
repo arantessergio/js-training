@@ -7,6 +7,11 @@ const TodoSchema = new Schema(
         done: {
             type: Boolean,
             default: false
+        },
+        time: Date,
+        schedule: {
+            type: Schema.Types.ObjectId,
+            reference: 'Schedule'
         }
     },
     {
