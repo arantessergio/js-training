@@ -1,19 +1,19 @@
 const mongoose = require('mongoose')
-const Todo = require('../models/Todo')
+const Schedule = require('../models/Schedule')
 
 exports.create = (req, res) => {
-    const schedule = req.params.id
-    const todo = req.body
-    todo.schedule = schedule
-    Todo.create(todo, (err, result) => {
+    const user = req.params.id
+    const schedule = req.body
+    schedule.user = user
+    Schedule.create(schedule, (err, result) => {
         if (err) res.send(err)
         if (result) res.send(result)
     })
 }
 
 exports.list = (req, res) => {
-    const schedule = req.params.id
-    Todo.find({ schedule }, (err, result) => {
+    const user = req.params.id
+    Schedule.find({ user }, (err, result) => {
         if (err) res.send(err)
         if (result) res.send(result)
     })
@@ -21,7 +21,7 @@ exports.list = (req, res) => {
 
 exports.get = (req, res) => {
     const { id } = req.params
-    Todo.findById(id, (err, result) => {
+    Schedule.findById(id, (err, result) => {
         if (err) res.send(err)
         if (result) res.send(result)
         if (!err && !result) res.status(404).send()
@@ -30,7 +30,7 @@ exports.get = (req, res) => {
 
 exports.update = (req, res) => {
     const { id } = req.params
-    Todo.findByIdAndUpdate(id, req.body, { new: true }, (err, result) => {
+    Schedule.findByIdAndUpdate(id, req.body, { new: true }, (err, result) => {
         if (err) res.send(err)
         if (result) res.send(result)
         if (!err && !result) res.status(404).send()
@@ -39,7 +39,7 @@ exports.update = (req, res) => {
 
 exports.delete = (req, res) => {
     const { id } = req.params
-    Todo.findByIdAndRemove(id, (err, result) => {
+    Schedule.findByIdAndRemove(id, (err, result) => {
         if (err) res.send(err)
         if (result) res.status(200).send({ success: true })
         if (!err && !result) res.status(404).send()
