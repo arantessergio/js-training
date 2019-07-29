@@ -7,8 +7,6 @@ export const Calendars = () => {
     console.log(value, mode);
   }
   return (
-    <>
       <Calendar onPanelChange={onPanelChange} />
-    </>
   );
 };

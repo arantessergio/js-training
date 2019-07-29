@@ -3,6 +3,9 @@ import { Form, Icon, Input, Button, Checkbox } from 'antd'
 import 'antd/dist/antd.css'
 import './Login.css'
 import Axios from 'axios'
+// import { BrowserRouter as Router, withRouter, Redirect} from 'react-router-dom'
+// import { url } from 'inspector'
+// import { withRouter } from 'react-router-dom'
 
 const Login = props => {
     const { getFieldDecorator } = props.form
@@ -18,22 +21,36 @@ const Login = props => {
         setForm(frm)
     }
 
+    const handleCalendar = async id => {
+        await Axios({
+            method: 'GET',
+            url: 'http://localhost:3001/users/' + id + '/schedules'
+        }).then(response => {
+            console.log(response.data)
+            props.history.push('/')
+        })
+    }
+
     const handleSubmit = e => {
         e.preventDefault()
         props.form.validateFieldsAndScroll(async error => {
             if (!error) {
-                const login = {
-                    email: form.username,
-                    password: form.password
-                }
-                const url = 'http://localhost:3001/users/auth'
-
-                const res = await Axios.post(url, login)
-
-                console.log(res)
-                console.log(res.data)
-
-                window.localStorage.setItem('login', res.data._id)
+                await Axios({
+                    method: 'POST',
+                    url: 'http://localhost:3001/users/auth',
+                    data: {
+                        email: form.username,
+                        password: form.password
+                    }
+                })
+                    .then(response => {
+                        console.log(response.data)
+                        localStorage.setItem('login', response.data._id)
+                        handleCalendar(response.data._id)
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
                 console.log('Recebendo Valores: ', form)
             }
         })
@@ -90,9 +107,7 @@ const Login = props => {
                         valuePropName: 'checked',
                         initialValue: true
                     })(<Checkbox>Lembrar login</Checkbox>)}
-                    <a className='login-form-forgot' id='texto' href=''>
-                        Esquesci senha
-                    </a>
+                    <a className='login-form-forgot'>Esqueci senha</a>
                     <Button
                         type='primary'
                         htmlType='submit'
@@ -100,11 +115,11 @@ const Login = props => {
                     >
                         Log in
                     </Button>
-                    <a href="">Registrar-se!</a>
+                    <a>Registrar-se!</a>
                 </Form.Item>
             </Form>
         </div>
     )
 }
 
-export const CreateAccount = Form.create({ name: 'login' })(Login)
+export const LoggingAccount = Form.create({ name: 'login' })(Login)
