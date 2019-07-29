@@ -1,4 +1,4 @@
-import React, { useContext, useState, FormEvent } from 'react';
+import React, { useContext } from 'react';
 import { TodoCtx } from '../../Hooks/TarefaContext';
 import axios from 'axios';
 import { Link } from 'react-router-dom'
@@ -51,6 +51,7 @@ export const TodoInput = (props) => {
                 ctx.setTodoList([...ctx.todoList,{
                     id: res.data._id,
                     description: values.description,
+                    time: values['date-picker'],
                     isCompleted: false,
                 }])
                 console.log(res.data)
