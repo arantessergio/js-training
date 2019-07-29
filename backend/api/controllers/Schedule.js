@@ -45,12 +45,3 @@ exports.delete = (req, res) => {
         if (!err && !result) res.status(404).send()
     })
 }
-
-exports.search = (req,res) => {
-    const { gt, lt } = req.params
-    Schedule.find({date: { $gte: gt, $lte: lt}}, (err, result) => {
-        if (err) res.send(err)
-        if (result) res.send(result)
-        if (!err && !result) res.status(404).send()
-    })
-}
