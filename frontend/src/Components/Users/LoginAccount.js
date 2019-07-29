@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Form, Icon, Input, Button, Checkbox } from 'antd'
 import 'antd/dist/antd.css'
 import './Login.css'
@@ -19,11 +19,11 @@ const Login = props => {
     }
 
     const handleCalendar = async id => {
-       const response = await Axios({
+        const response = await Axios({
             method: 'GET',
             url: 'http://localhost:3001/users/' + id + '/schedules'
         })
-        console.log(response.data)
+        response.data.map(i => localStorage.setItem('agenda', i._id))
         props.history.push('/')
     }
 
@@ -40,12 +40,15 @@ const Login = props => {
                     }
                 })
                 console.log(response.data)
-                localStorage.setItem('login', response.data._id)
+                localStorage.setItem('usuario', response.data._id)
                 handleCalendar(response.data._id)
                 console.log('Recebendo Valores: ', form)
             }
         })
     }
+    useEffect(() => {
+        console.log(window.localStorage.getItem('agenda'))
+    })
 
     return (
         <div className='login'>
