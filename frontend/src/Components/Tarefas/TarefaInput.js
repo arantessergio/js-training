@@ -14,7 +14,7 @@ export const TodoInput = (props) => {
             xs: { span: 24 },
             sm: { span: 8 },
         },
-        wrapperCol: {
+        wrapperCol: {   
             lg: { span: 8 },
             xs: { span: 8 },
             sm: { span: 8 },

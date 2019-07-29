@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { Form, Icon, Input, Button, Checkbox } from 'antd'
+import React, { useState } from 'react'
+import { Form, Icon, Input, Button, Checkbox, message } from 'antd'
 import 'antd/dist/antd.css'
 import './Login.css'
 import Axios from 'axios'
@@ -18,15 +18,6 @@ const Login = props => {
         setForm(frm)
     }
 
-    const handleCalendar = async id => {
-        const response = await Axios({
-            method: 'GET',
-            url: 'http://localhost:3001/users/' + id + '/schedules'
-        })
-        response.data.map(i => localStorage.setItem('agenda', i._id))
-        props.history.push('/')
-    }
-
     const handleSubmit = e => {
         e.preventDefault()
         props.form.validateFieldsAndScroll(async error => {
@@ -39,16 +30,21 @@ const Login = props => {
                         password: form.password
                     }
                 })
-                console.log(response.data)
-                localStorage.setItem('usuario', response.data._id)
-                handleCalendar(response.data._id)
-                console.log('Recebendo Valores: ', form)
+
+                if (response.data.error) {
+                    message.error('Email ou senha invalidos')
+                } else {
+                    console.log(response.data)
+                    localStorage.setItem('login', response.data._id)
+                    props.history.push('/')
+                    console.log('Recebendo Valores: ', form)
+                }
+
+            } else {
+                message.error('Por favor preencha os campos!')
             }
         })
     }
-    useEffect(() => {
-        console.log(window.localStorage.getItem('agenda'))
-    })
 
     return (
         <div className='login'>
