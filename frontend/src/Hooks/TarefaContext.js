@@ -4,16 +4,24 @@ import axios from 'axios';
 export const TodoCtx = createContext({})
 
 export const TodoProvider = ({children}) => {
-    const [elem, setElem] = useState([{id: '123', description: 'teste', isCompleted: false},{id: '1234', description: 'teste 2', isCompleted: false}])
-    /*useEffect(() => {
+    const [elem, setElem] = useState([])
+
+    useEffect(() => {
         const fetchData = async () => {
-            const url = 'http://localhost:3001/todos/'
+            const agenda = window.localStorage.getItem('agenda')
+            const url = 'http://localhost:3001/schedules/' + agenda + '/todos'
             const res = await axios.get(url)
-            console.log(res)
-            console.log(res.data)
+            res.data.map(i => setElem(e => [...e, {
+                id: i._id,
+                description: i.description,
+                time: i.time,
+                isCompleted: i.done,
+            }]))
         }
-        fetchData()
-    })*/
+        if(window.localStorage.getItem('agenda'))
+            fetchData()
+    }, [])
+
     return(
         <>
             <TodoCtx.Provider value={{todoList: elem, setTodoList: setElem}}>
