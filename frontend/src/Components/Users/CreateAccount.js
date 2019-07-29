@@ -29,6 +29,7 @@ const Register = (props) => {
                 console.log(res)
                 console.log(res.data)
                 window.localStorage.setItem('agenda', res.data._id)
+                props.history.push('/login')
             }
         })
     }
