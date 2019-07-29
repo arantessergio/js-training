@@ -3,9 +3,6 @@ import { Form, Icon, Input, Button, Checkbox } from 'antd'
 import 'antd/dist/antd.css'
 import './Login.css'
 import Axios from 'axios'
-// import { BrowserRouter as Router, withRouter, Redirect} from 'react-router-dom'
-// import { url } from 'inspector'
-// import { withRouter } from 'react-router-dom'
 
 const Login = props => {
     const { getFieldDecorator } = props.form
@@ -22,20 +19,19 @@ const Login = props => {
     }
 
     const handleCalendar = async id => {
-        await Axios({
+       const response = await Axios({
             method: 'GET',
             url: 'http://localhost:3001/users/' + id + '/schedules'
-        }).then(response => {
-            console.log(response.data)
-            props.history.push('/')
         })
+        console.log(response.data)
+        props.history.push('/')
     }
 
     const handleSubmit = e => {
         e.preventDefault()
         props.form.validateFieldsAndScroll(async error => {
             if (!error) {
-                await Axios({
+                const response = await Axios({
                     method: 'POST',
                     url: 'http://localhost:3001/users/auth',
                     data: {
@@ -43,14 +39,9 @@ const Login = props => {
                         password: form.password
                     }
                 })
-                    .then(response => {
-                        console.log(response.data)
-                        localStorage.setItem('login', response.data._id)
-                        handleCalendar(response.data._id)
-                    })
-                    .catch(error => {
-                        console.log(error)
-                    })
+                console.log(response.data)
+                localStorage.setItem('login', response.data._id)
+                handleCalendar(response.data._id)
                 console.log('Recebendo Valores: ', form)
             }
         })
