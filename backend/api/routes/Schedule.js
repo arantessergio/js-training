@@ -9,4 +9,7 @@ module.exports = app => {
     app.route('/users/:id/schedules')
         .post((req, res) => ScheduleControler.create(req, res))
         .get(ScheduleControler.list)
+
+    app.route('/schedules/search')
+        .post((req, res) => ScheduleControler.search(req, res))
 }
