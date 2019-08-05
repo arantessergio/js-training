@@ -30,14 +30,24 @@ const Login = props => {
                         password: form.password
                     }
                 })
-
                 if (response.data.error) {
                     message.error('Email ou senha invalidos')
                 } else {
                     console.log(response.data)
                     localStorage.setItem('login', response.data._id)
-                    props.history.push('/')
+                    //props.history.push('/')
                     console.log('Recebendo Valores: ', form)
+                    let id = response.data._id
+                    const responseAg = await Axios({
+                        method: 'GET',
+                        url: 'http://localhost:3001/users/' + id + '/schedules'
+                    })
+                    if (responseAg.data.error) {
+                        message.error('Email ou senha invalidos')
+                    } else {
+                        responseAg.data.map(i => localStorage.setItem('agenda', i._id))
+                        props.history.push('/')
+                    }
                 }
 
             } else {
