@@ -7,12 +7,14 @@ import { CreateAccount } from './Components/Users/CreateAccount';
 import { TarefaInput } from './Components/Tarefas/TarefaInput';
 import { TarefaList } from './Components/Tarefas/TarefaList';
 import { TodoProvider } from './Hooks/TarefaContext';
+import { LoggingAccount } from './Components/Users/LoginAccount';
 
 ReactDOM.render(
     <BrowserRouter>
         <Switch>
             <Route path="/" exact={true}><TodoProvider><Home/></TodoProvider></Route>
             <Route path="/registrar" component={CreateAccount} />
+            <Route path="/login" component={LoggingAccount} />
             <Route path="/novatarefa"><TodoProvider><TarefaInput/></TodoProvider></Route>
             <Route path="/tarefas"><TodoProvider><TarefaList/></TodoProvider></Route>
         </Switch>

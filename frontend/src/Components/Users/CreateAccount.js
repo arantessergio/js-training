@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import axios from 'axios';
 import 'antd/dist/antd.css';
 import { Form, Input, Button } from 'antd';
-import { Link, Redirect } from 'react-router-dom'
 
 const Register = (props) => {
     const { getFieldDecorator, getFieldValue } = props.form;
@@ -19,7 +18,6 @@ const Register = (props) => {
                 let res = await axios.post(url, user)
                 console.log(res)
                 console.log(res.data)
-                window.localStorage.setItem('usuario', res.data._id)
 
                 // Criar schedule
                 const agenda = {description: 'none', date: '2019-07-26'}
@@ -28,7 +26,7 @@ const Register = (props) => {
                 res = await axios.post(url, agenda)
                 console.log(res)
                 console.log(res.data)
-                window.localStorage.setItem('agenda', res.data._id)
+                props.history.push('/login')
             }
         })
     }
@@ -45,9 +43,6 @@ const Register = (props) => {
             callback()
         }
     }
-    useEffect(() => {
-        console.log(window.localStorage.getItem('usuario'))
-    })
     const formItemLayout = {
         labelCol: {
             lg: { span: 8 },
